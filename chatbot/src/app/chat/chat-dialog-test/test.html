@@ -1,0 +1,91 @@
+<div class="chat">
+    <div class="chat-title">
+      <figure class="avatar">
+        <img src="./assets/images/techved_logo.png" /></figure>
+      <button style="width:auto;float:right;" (click)="clear_conversation()">Clear</button>
+    </div>
+    <!-- <div *ngIf="timeout">Loading App</div>
+  <div *ngIf="!timeout">
+    Welcome
+  </div> -->
+  
+    <div class="messages">
+  
+      <ul class="messages-content" #scrollMe [scrollTop]="scrollMe.scrollHeight" *ngIf="messages.length > 0">
+        
+        <ng-container *ngFor="let message of messages , let i=index">
+          <li >
+            <div>
+            </div>
+            <div class="remove_msg" *ngIf="i==0">
+              <img  src="./assets/images/hello_girl.webp" width="200px" height="200px">
+              <div class="message" 
+              [ngClass]="{ 'you': message.sentBy === 'bot', 'message-personal': message.sentBy === 'user' }">
+                {{ message.content}}
+  
+              </div>
+            </div>
+            <div *ngIf="i!=0 && !message.array">
+              <div *ngIf="message.content=='No'">
+                <img src="./assets/images/shokinh 2.webp" width="200px" height="200px">
+              </div>
+              <div class="message" 
+              [ngClass]="{ 'you': message.sentBy === 'bot', 'message-personal': message.sentBy === 'user' }">
+              {{ message.content }}
+              </div>
+            </div>
+  
+            <div *ngIf="message.array">
+              <div *ngFor="let message of message.array">
+                <!-- <button (click)="external_link()"> {{message1.text}}</button> -->
+                <div class="message" 
+                [ngClass]="{ 'you': message.sentBy === 'bot', 'message-personal': message.sentBy === 'user' }">{{message.text}}</div>
+                <div *ngFor="let message1 of message.quick_replies">
+                  <div class="message" 
+                  [ngClass]="{ 'you': message.sentBy === 'bot', 'message-personal': message.sentBy === 'user' }" *ngIf="message1.block_names && message1.title!='selection' ">
+                    <button class="bullet-button" (click)="callLink(message1.block_names,i,message.text)">
+                      {{message1.block_names}}</button>
+                  </div>
+                  <div class="message" 
+                  [ngClass]="{ 'you': message.sentBy === 'bot', 'message-personal': message.sentBy === 'user' }" *ngIf="message1.title=='selection'">
+  
+                    <input type="checkbox" name='message1.block_names' (click)="cheking($event)"
+                      value='{{message1.block_names}}'>
+                    <label>{{message1.block_names}}</label>
+                  </div>
+                  <div *ngIf="message1.block_url">
+                    <iframe class="case_study_url" width="100%"
+                      src='https://www.techved.com/case-study/user-experience-design'>
+                    </iframe>
+                  </div>
+                </div>
+                
+              </div>
+  
+            </div>
+  
+          </li>
+  
+        </ng-container>
+  
+      </ul>
+      
+    </div>
+    <div class="typing" *ngIf="timeout">
+      <div class="bubble">
+        <div class="ellipsis one"></div>
+        <div class="ellipsis two"></div>
+        <div class="ellipsis three"></div>
+      </div>
+    </div> 
+    <div class="message-box">
+      <form>
+        <input type="text" name="formValue" [(ngModel)]="formValue" class="message-input"
+          placeholder="Type message here...">
+        <button (click)="sendMessage()" type="submit" class="message-submit">Send</button>
+      </form>
+    </div>
+  
+  
+  </div>
+  <div class="bg"></div>

@@ -1,0 +1,212 @@
+<div class="chat" *ngIf="!close_component">
+  <div class="chat-title animated">
+    <div class="chat-logo">
+      <img [src]='main_expression' alt="ACE Bot">
+      <div class="chat-close">
+        <img src="./assets/images/close-btn.svg" (click)="close()" alt="ACE Bot">
+      </div>
+    </div>
+    <h2 class="animated">Hi there!<i class="wave"></i><br />This is ACE Bot.</h2>
+    <p class="animated">The most epic bot out there.🙂</p>
+
+    <img src="./assets/images/reload.png" class="clear_image" (click)="clear_conversation()" />
+
+  </div>
+  <div class="messages">
+    <audio autoplay>
+      <source src='./assets/robot.mp3' type="audio/mp3">
+    </audio>
+
+    <ul class="messages-content" #scrollMe [scrollTop]="scrollMe.scrollHeight" *ngIf="messages.length > 0">
+      <!-- <div class="tvd-logo fade-in">
+     
+        <img src="./assets/images/techved-gif.gif" class="" style="border-radius: 50%;margin: 30px auto 14px;width: 75px;height: 75px;display: flex;border: 3px solid #ff9604 ;">
+      </div> -->
+      <ng-container *ngFor="let message of messages  , let i=index">
+        <!-- <audio autoplay *ngIf="message.sentBy === 'bot' && messages.length > 2">
+          <source src='./assets/light.mp3' type="audio/mp3">
+      </audio> -->
+        <li class="message testa"
+          [ngClass]="{ 'you new': message.sentBy === 'bot', 'message-personal ': message.sentBy === 'user', 'test': (message.component_type=='button'),'change_bullet_size': (message.component_type=='button' && no_of_bullet_button>5), 'block_url_selection':(message.component_type=='corosel')}">
+          <div>
+          </div>
+          <div *ngIf="i==0">
+            <!-- <img src="./assets/images/techved-gif.gif" width="200px" height="200px"> -->
+            <div>
+              {{ message.content}}
+            </div>
+          </div>
+          <div *ngIf="i!=0 && !message.array">
+            <!-- <div *ngIf="message.content=='No'">
+              <img src="./assets/images/shokinh 2.webp"  width="150px" height="150px">
+            </div> -->
+            <div *ngIf="message.content=='Thank you.'">
+              <img src="./assets/images/thank you.gif" width="400px" height="300px">
+            </div>
+            <div
+              *ngIf="message.content!='Thank you.'  && !(message.content).includes('Copy that! Can you tell me which platform') && message.content!='Oh cool!' && message.content!='Done! To know us better you can have a look at our portfolio' && message.content!='Pretty cool!' && message.content!='Awesome!' && message.content!='email_id' && message.content!='copy_that' && message.content!='phone_number' && message.content!='What should I tell you about first?' && message.content!='Experience truly matters! Here are a few ways I’ll help you with.'">
+              {{ message.content }}
+            </div>
+            <div *ngIf="message.content=='phone_number'" class="gif-img">
+              <img src="./assets/images/phone2.gif" width="150px" height="150px">
+            </div>
+            <div *ngIf="message.content=='email_id'" class="gif-img">
+              <img src="./assets/images/open-email.gif" class="email-gif" width="150px" height="150px">
+            </div>
+
+            <div *ngIf="message.content=='copy_that'" class="gif-img">
+              <img src="./assets/images/copy_that.gif" width="150px" height="150px">
+            </div>
+            <div *ngIf="message.content=='Awesome!'">
+              {{ message.content }}
+              <img src="./assets/images/thumbs_up.gif" class="gif_icon">
+            </div>
+            <div *ngIf="message.content=='Pretty cool!' || message.content=='Oh cool!'">
+              {{ message.content }}
+              <img src="./assets/images/smile_sunglass.gif" class="gif_icon">
+            </div>
+            <div *ngIf="message.content=='Done! To know us better you can have a look at our portfolio'">
+              <img src="./assets/images/right_sign.gif" class="gif_icon">
+              {{ message.content }}
+            </div>
+            <div *ngIf="(message.content).includes('Copy that! Can you tell me which platform')">
+              {{ message.content }}
+              <img src="./assets/images/thinking_face.gif" class="gif_icon">
+            </div>
+            <div
+              *ngIf="message.content=='What should I tell you about first?' || message.content=='Experience truly matters! Here are a few ways I’ll help you with.'">
+              {{ message.content }}
+              <img src="./assets/images/below.gif" class="gif_icon">
+            </div>
+
+          </div>
+
+          <div *ngIf="message.array">
+
+            <div *ngFor="let message of message.array">
+              <!-- <button (click)="external_link()"> {{message1.text}}</button> -->
+              <div>{{message.text}}</div>
+              <div [ngClass]="{ 'show_button_row': message.title != 'selection' }">
+                <div *ngFor="let message1 of message.quick_replies">
+                  <div>
+                    <div>
+                      <div *ngIf="message1.block_names && message1.title!='selection' ">
+
+                        <button class="bullet-button" *ngIf="message1.block_names!='Skip'"
+                          (click)="callLink(message1.block_names,i,message.text)"
+                          [ngClass]="{ 'small-bullet-button': message1.block_names!='Skip' && message1.image }">
+                          <img src="{{message1.image}}" *ngIf="message1.block_names!='Skip' && message1.image" alt="">
+                          {{message1.block_names}}</button>
+                        <button class="bullet-button-skip" *ngIf="message1.block_names=='Skip'"
+                          (click)="callLink(message1.block_names,i,message.text)">
+                          {{message1.block_names}}</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="message1.title=='selection'">
+
+                    <input type="checkbox" name='message1.block_names' (click)="cheking($event)"
+                      value='{{message1.block_names}}'>
+                    <label>{{message1.block_names}}</label>
+                  </div>
+                  <div *ngIf="message1.block_url">
+                    
+                    <!-- <iframe class="case_study_url" width="100%"
+                    src='https://www.techved.com/case-study/user-experience-design'>
+                  </iframe> -->
+                    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                      <div ngxSlickItem *ngFor="let slide of message1.block_url" class="slide">
+                        <!-- corosel for link -->
+
+                        <div class="service-slick-slide case-study-slick-slide"
+                          *ngIf="message1.button_corosel!='yes' && message1.title!='percentage'">
+                          <a href="{{slide.url}}" target="_blank">
+                            <img src="{{slide.image}}" alt="">
+                            <h5>{{ slide.title}}</h5>
+                            <h6>{{ slide.title2}}</h6>
+                          </a>
+
+                        </div>
+                        <!--<div class="service-slick-slide stacks-slick-slide" *ngIf="message1.title=='percentage'">
+                          <h4>{{slide.bold_title}}</h4>
+                          <h5>{{ slide.title}}</h5>
+                        </div>-->
+                        <!-- corosel for button -->
+                        <div *ngIf="message1.button_corosel=='yes'" (click)="callLink(slide.title,i,'')"
+                          class="service-slick-slide">
+                          <a href="{{slide.url}}" target="_blank">
+                            <img src="{{slide.image}}" width="60" height="60" alt="">
+                          </a>
+                            <p>{{ slide.title}}</p>
+                          
+                        </div> 
+                      </div>
+                    </ngx-slick-carousel>
+                  </div>
+                </div>
+                <div *ngIf="message.label">
+                  
+                  <!--<div style="font-size: 18px;font-weight: bold;margin-bottom: 13px;">◼️ {{message.label}} :</div>-->
+        <li class="list-items" style="font-size: 18px;" *ngFor="let list_items of message.listing">
+          {{list_items.list}}</li>
+  </div>
+</div>
+
+
+</div>
+
+</div>
+
+<input type="image" *ngIf="(message.sentBy == 'user' ) && i==back_button_no && i>3" (click)="back_button_new(i)"
+  src="./assets/images/back-button.png" class="back-button">
+</li>
+</ng-container>
+</ul>
+<!-- <ul class="typing" *ngIf="timeout">
+      <div class="bubble">
+        <div class="ellipsis one"></div>
+        <div class="ellipsis two"></div>
+        <div class="ellipsis three"></div>
+      </div>
+    </ul>  -->
+<ul class="typing" *ngIf="timeout">
+  <div class="boxContainer">
+    <div class="box box1"></div>
+    <div class="box box2"></div>
+    <div class="box box3"></div>
+    <div class="box box4"></div>
+    <div class="box box5"></div>
+  </div>
+</ul>
+</div>
+<!-- <div >{{error_msg}}{{phone_no}}{{email}}</div> -->
+
+<div class="message-box">
+
+  <form (ngSubmit)="sendMessage()" [formGroup]="chatSubmit">
+    <!-- <img width="20" height="18"  (click)="back_message()" src="./assets/images/return.png" style="position: absolute;left: 14px;top: 19px;cursor: pointer;"> -->
+    <input type="text" formControlName="normal" *ngIf="!phone_no && !email" class="message-input"
+      placeholder="Type message here...">
+
+    <div class="phone_group">
+      <select formControlName="country_code" style="width: auto;" *ngIf="phone_no && coutry_codes">
+        <option *ngFor="let country of coutry_codes" [value]="country.dial_code">
+          {{country.name}}
+        </option>
+      </select>
+      <input type="text" formControlName="phone" *ngIf="phone_no" minlength="10" maxlength="10" class="message-input"
+        placeholder="Type Phone No here...">
+    </div>
+    <input type="text" formControlName="email1" *ngIf="email" class="message-input" placeholder="Type Email here...">
+    <button type="submit" [disabled]="chatSubmit.invalid || timeout " class="message-submit"><img
+        src="./assets/images/send-button.png"></button>
+  </form>
+</div>
+<div class="smat-footer">
+  <span>Powered by </span>
+  <span>
+    <a class="smat-branding-a">TECHVED</a>
+  </span>
+</div>
+</div>
+<div class="bg"></div>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="52" height="52" viewBox="0 0 52 52">
+    <defs>
+        <filter id="prefix__a" width="100%" height="100%" x="0" y="0" filterUnits="objectBoundingBox">
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <path id="prefix__d" d="M36.493 15.473c-.104-.09-.251-.11-.377-.053L13.467 25.756c-.122.056-.2.175-.202.307-.001.133.075.254.196.312l6.41 3.09c.117.056.257.044.362-.034l6.232-4.575-4.893 4.943c-.07.07-.105.167-.097.266l.487 6.23c.01.139.105.257.239.3.036.012.072.017.109.017.1 0 .197-.042.264-.119l3.402-3.872 4.206 1.974c.09.043.197.045.29.005.092-.04.163-.117.193-.212l5.931-18.555c.042-.13.001-.27-.103-.36z"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" filter="url(#prefix__a)" transform="translate(0 0)">
+        <use fill="#FFFFFF" fill-rule="nonzero" xlink:href="#prefix__d"/>
+    </g>
+</svg>
